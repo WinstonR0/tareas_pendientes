@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tus tareas app</title>
+</head>
+<body  class="bg-gray-100 flex flex justify-center items-center min-h-screen">
+
+    <div class="bg-white shadow-lg rounded-xl p-6 max-w-2xl">
+
+        <h1 class="text-2xl font-bold mb-4 text-center">
+            Lista de tareas
+        </h1>
+
+        <!-- Input -->
+         <div class="mb-4">
+
+            <input 
+                type="text", 
+                id="titulo",
+                placeholder="Nueva Tarea? WOW",
+                class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+
+            <button
+                onclick="crearTarea()"
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            >
+                +
+            </button>
+         </div>
+
+         <!--Lista-->
+         <ul id="lista" class="space-y-2"></ul>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
