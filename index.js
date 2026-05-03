@@ -1,6 +1,8 @@
 // importar modelo de tareas
 const Tarea = require("./models/Tarea")
 
+const PORT = process.env.PORT || 3000;
+
 // Cargas variables de entorno desde el archio .env
 // esto permite usar process.env.MONGO_URI
 require("dotenv").config(); //dotenv carga cofig secret
@@ -46,8 +48,8 @@ app.get("/", (req,res) => {
 
 // levantar el servidor
 // Hacer que la app escuche puerto 3000
-app.listen(3000, () => {
-    console.log("Servidor en http://localhost:3000");
+app.listen(PORT, () => {
+    console.log("Servidor corriendo", PORT);
 });
 
 
@@ -119,7 +121,7 @@ app.put("/api/tareas/:id", async (req, res) => {
             datosActualizados,
             {
                 returnDocument: "after",        // devuelve la tarea ya actalizada
-                runValidator: true  // Valida el enum del estado 
+                runValidators: true  // Valida el enum del estado 
             }
         );
 
