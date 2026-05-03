@@ -18,7 +18,10 @@ const app = express();
 app.use(express.json());
 
 // 3. Middlewares
-app.use(cors());
+app.use(cors({
+    origin: "*"
+}));
+
 app.use(express.json());
 
 //conexion con mongoDB Atlas ya que es en la nube
