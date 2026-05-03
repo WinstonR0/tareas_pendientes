@@ -1,5 +1,5 @@
 // URL base de la api
-const API_URL = "http://localhost:3000/api/tareas";
+const API_URL = "https://tu-app.onrender.com/api/tareas";
 
 // 1. cargar las taeas al iniciar 
 document.addEventListener("DOMContentLoaded", obtenerTareas);
