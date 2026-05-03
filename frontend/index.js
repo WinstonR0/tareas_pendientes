@@ -1,5 +1,5 @@
 // importar modelo de tareas
-const Tarea = require("./models/Tarea")
+const Tarea = require("../models/Tarea")
 
 // Cargas variables de entorno desde el archio .env
 // esto permite usar process.env.MONGO_URI
