@@ -16,14 +16,13 @@ const cors = require("cors"); // frontend
 // Crear la app de Express
 const app = express();
 
-// Iniciar el servidor
-app.use(express.json());
-
-// 3. Middlewares
 app.use(cors({
-    origin: "*"
+    origin: "https://hilarious-gnome-e49409.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"]
 }));
 
+// Iniciar el servidor
 app.use(express.json());
 
 //conexion con mongoDB Atlas ya que es en la nube
