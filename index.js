@@ -17,7 +17,7 @@ const cors = require("cors"); // frontend
 const app = express();
 
 app.use(cors({
-    origin: "https://lighthearted-manatee-12f08f.netlify.app/",
+    origin: "https://lighthearted-manatee-12f08f.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"]
 }));
