@@ -4,12 +4,6 @@ const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
 // 1. cargar las taeas al iniciar 
 document.addEventListener("DOMContentLoaded", obtenerTareas);
 
-// Fecha con formato legible 
-const fechaFormateada = new Date(tarea.fecha).toLocaleString("es-CO", {
-    dateStyle: "medium",
-    timeStyle: "short"
-});
-
 // GET 
 async function obtenerTareas() {
 
@@ -22,6 +16,12 @@ async function obtenerTareas() {
     lista.innerHTML = ""; // Esto lo que hace es limpiar la lista 
 
     tareas.forEach(tarea => {
+
+        // Fecha con formato legible 
+        const fechaFormateada = new Date(tarea.fecha).toLocaleString("es-CO", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        });
 
         let colorEstado;
 
