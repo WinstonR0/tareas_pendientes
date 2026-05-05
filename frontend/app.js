@@ -31,6 +31,12 @@ async function obtenerTareas() {
         // Mostrar la info de las tareas
         li.innerHTML = `
             <div>
+
+                <!-- Fecha -->
+                <p class="font-medium">
+                    ${tarea.fecha}
+                </p>
+
                 <!-- titulo -->
                 <p class="font-medium ${tarea.estado === "completado" ? "line-through text-gray-400" : ""}">
                     ${tarea.titulo}
