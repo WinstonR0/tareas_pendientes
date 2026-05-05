@@ -5,7 +5,7 @@ const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
 document.addEventListener("DOMContentLoaded", obtenerTareas);
 
 // Fecha con formato legible 
-const fechaFormateada = new Date (tareas.fecha).toLocaleString("es-CO", {
+const fechaFormateada = new Date(tarea.fecha).toLocaleString("es-CO", {
     dateStyle: "medium",
     timeStyle: "short"
 });
