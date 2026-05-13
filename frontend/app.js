@@ -1,5 +1,9 @@
 // URL base de la api
-const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
+//const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
+const API_URL = "http://localhost:3000/api/tareas";
+
+// Estado para editar tarea. Si es null, significa que esta en creando, si tiene algun valor significa que estamos editando.
+let editando = null;
 
 // 1. cargar las taeas al iniciar 
 document.addEventListener("DOMContentLoaded", obtenerTareas);
@@ -56,18 +60,27 @@ async function obtenerTareas() {
 
             <div class="ml-4 flex gap-2">
                 <button 
-                    class="border px-2 rounded hover:bg-red-200"
+                    class="border px-2 rounded hover:bg-red-300"
                     onclick="eliminarTarea('${tarea._id}')"
                 >
                     Eliminar
                 </button>
 
                 <button 
-                    class="border px-2 rounded hover:bg-green-200"
+                    class="border px-2 rounded hover:bg-green-300"
                     onclick="cambiarEstado('${tarea._id}', '${tarea.estado}')"
                 >
                     Completar
                 </button>
+
+                <button
+                    class="border px-2 rounded hover:bg-yellow-300"
+                    onclick="editarTarea('${tarea._id}', '${tarea.titulo}')"
+                >
+                    Editar
+                </button>
+                
+                
             </div>
         `;
 
@@ -88,13 +101,30 @@ async function crearTarea(){
 
     if(!titulo) return alert("Escribe una tarea ???");
 
-    await fetch(API_URL, {
+    console.log(titulo);
+
+    if (editando) {
+        await fetch(`${API_URL}/${editando}`,{
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ titulo })
+        })
+        editando = null;
+
+        document.getElementById("btnGuardar").textContent = "+";
+
+    }else{
+
+        await fetch(API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ titulo })
     });
+    }
 
     input.value = ""; // Para que este en blanco:
     obtenerTareas(); // Recargar la lista, esto para cada que vez que se agregue una tarea
@@ -133,7 +163,21 @@ async function cambiarEstado(id, estadoActual) {
 
     // recargar tareas}
     obtenerTareas();
+}
 
+function editarTarea(id, titulo){
+
+    // debemos obtener el dato que nos va a mandar el usuario
+    const input = document.getElementById("titulo");
+
+    // camabir el texto por el input del usuario
+    input.value = titulo;
+
+    // guardar el id que se esta editando
+    editando = id;
+
+    // cambiar el texto del boton para que en luagr de que diga completar diga editando
+    document.getElementById("btnGuardar").textContent = "Actualizar tarea";
 }
 
 
