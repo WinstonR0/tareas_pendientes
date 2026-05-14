@@ -5,6 +5,9 @@ const API_URL = "http://localhost:3000/api/tareas";
 // Estado para editar tarea. Si es null, significa que esta en creando, si tiene algun valor significa que estamos editando.
 let editando = null;
 
+// variable global donde guardaremos las tareas que vamos a exportar
+let tareasExportar = [];
+
 // 1. cargar las taeas al iniciar 
 document.addEventListener("DOMContentLoaded", obtenerTareas);
 
@@ -15,6 +18,8 @@ async function obtenerTareas() {
         
     const res = await fetch(API_URL);
     const tareas = await res.json();
+    
+    tareasExportar = tareas;
 
     const lista = document.getElementById("lista");
     lista.innerHTML = ""; // Esto lo que hace es limpiar la lista 
@@ -180,5 +185,38 @@ function editarTarea(id, titulo){
     document.getElementById("btnGuardar").textContent = "Actualizar tarea";
 }
 
+// Funcion para exportar las tareas
+async function exportarTareas() {
+    let csv = "titulo, estado\n"
+
+    tareasExportar.forEach((tarea) => {
+
+        // Fecha con formato legible 
+        const fechaFormateada = new Date(tarea.fecha).toLocaleString("es-CO", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        });
+
+        csv += `${tarea.titulo},${tarea.estado},${fechaFormateada}\n`
+    })
+
+    // para convertir el texto en csv
+    const blob = new Blob([csv]);
+
+    // URL temporal para la descarga del archivo
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    // indicamos desde donde se descargara el archivo con href
+    a.href = url;
+
+    // ponemos un nobre al archivo con download
+    a.download = "tareas.csv"
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
 
 
