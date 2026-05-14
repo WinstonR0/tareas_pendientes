@@ -1,6 +1,6 @@
 // URL base de la api
-//const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
-const API_URL = "http://localhost:3000/api/tareas";
+const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
+//const API_URL = "http://localhost:3000/api/tareas";
 
 // Estado para editar tarea. Si es null, significa que esta en creando, si tiene algun valor significa que estamos editando.
 let editando = null;
