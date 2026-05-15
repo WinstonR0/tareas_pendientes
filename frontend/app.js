@@ -1,12 +1,15 @@
 // URL base de la api
-const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
-//const API_URL = "http://localhost:3000/api/tareas";
+//const API_URL = "https://tareas-pendientes-tn02.onrender.com/api/tareas";
+const API_URL = "http://localhost:3000/api/tareas";
 
 // Estado para editar tarea. Si es null, significa que esta en creando, si tiene algun valor significa que estamos editando.
 let editando = null;
 
 // variable global donde guardaremos las tareas que vamos a exportar
 let tareasExportar = [];
+
+// espacio por defecto
+let espacio = "trabajo";
 
 // 1. cargar las taeas al iniciar 
 document.addEventListener("DOMContentLoaded", obtenerTareas);
@@ -16,8 +19,10 @@ async function obtenerTareas() {
 
     try {
         
-    const res = await fetch(API_URL);
+    const res = await fetch(`${API_URL}?espacio=${espacio}`);
     const tareas = await res.json();
+    
+    console.log(espacio);
     
     tareasExportar = tareas;
 
@@ -46,6 +51,11 @@ async function obtenerTareas() {
         // Mostrar la info de las tareas
         li.innerHTML = `
             <div>
+
+                <!-- Espacio -->
+                <p class="font-medium">
+                    ${espacio}
+                </p>
 
                 <!-- Fecha -->
                 <p class="font-medium">
@@ -114,7 +124,7 @@ async function crearTarea(){
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ titulo })
+            body: JSON.stringify({ titulo, espacio })
         })
         editando = null;
 
@@ -127,7 +137,7 @@ async function crearTarea(){
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ titulo })
+        body: JSON.stringify({ titulo, espacio })
     });
     }
 
@@ -217,6 +227,14 @@ async function exportarTareas() {
     a.click();
 
     URL.revokeObjectURL(url);
+}
+
+// funcion para cambiar de estado
+function cambiarEspacio(nuevoEspacio) {
+    
+    // dejamos la variale de espacio en nuevoEspacio
+    espacio = nuevoEspacio;
+    obtenerTareas();
 }
 
 

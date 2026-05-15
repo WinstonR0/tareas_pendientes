@@ -1,4 +1,5 @@
 // insetar base de datos mongoose
+const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 
 // creamos la estructura el schema
@@ -21,6 +22,15 @@ const TareaSchema = new mongoose.Schema({
     fecha: {
         type: Date,
         default: Date.now // se pone automaticamente
+    },
+
+    // espacio, para permitir que otro usuario pueda mantener sus tareas en la misma base de datos
+    espacio: {
+        type:String,
+        enum: [
+            "winston", "trabajo", "julieth"
+        ],
+        default: "trabajo"
     }
     
 });

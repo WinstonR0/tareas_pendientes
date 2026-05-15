@@ -17,7 +17,7 @@ const cors = require("cors"); // frontend
 const app = express();
 
 app.use(cors({
-    origin: "https://6a0639a4d2496ab9e5b2e1b9--lighthearted-manatee-12f08f.netlify.app",
+    origin: ["https://6a0639a4d2496ab9e5b2e1b9--lighthearted-manatee-12f08f.netlify.app", "http://127.0.0.1:5500"],
     // No ruta, solo el sever desde donde se acepta
     //origin: "http://127.0.0.1:5500",
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -59,11 +59,11 @@ app.post("/api/tareas", async (req, res) => {
     try {
         
         //otener datos del body o se lo que envia el usuario
-        const { titulo } = req.body;
+        const { titulo, espacio } = req.body;
 
         // Crear una nueva tarea
         const nueva = new Tarea({
-            titulo
+            titulo, espacio
         });
 
         //GUardar tarea e mongo
@@ -81,9 +81,11 @@ app.post("/api/tareas", async (req, res) => {
 
 app.get("/api/tareas", async (req, res) => {
     try {
+
+        const { espacio } = req.query;
         
         // busca todas las tareas
-        const tareas = await Tarea.find();
+        const tareas = await Tarea.find({ espacio });
 
         //Muestra respuesta de todas las tareas en JSON
         res.json(tareas);
